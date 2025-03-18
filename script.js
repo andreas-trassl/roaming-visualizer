@@ -20,7 +20,7 @@ const ap2 = { name: "1. Obergeschoss", x: width * 0.35 - apSize / 2 - leftShift,
 // Client Position (initially near AP1)
 let client = { x: ap1.x + apSize + 20, y: ap1.y };
 
-let debounceTimeout = null;
+let lastMoveTime = 0; // Store the last move timestamp
 
 // Resize SVG dynamically
 svg.attr("width", width).attr("height", height);
@@ -62,11 +62,11 @@ function getClientCenter() {
 let currentAPDisplay = "3. Obergeschoss";
 
 function moveClientWithDebounce(targetAP) {
-  if (!debounceTimeout) {
+  const now = Date.now(); // Current time in milliseconds
+
+  if (now - lastMoveTime >= 2000) { // Only move if at least 2 seconds have passed
     moveClientToAP(targetAP);
-    debounceTimeout = setTimeout(() => {
-      debounceTimeout = null;
-    }, 2000); // 2 seconds debounce time
+    lastMoveTime = now; // Update the last move time
   } else {
     console.log("Debounced: Movement suppressed to prevent excessive calls.");
   }
