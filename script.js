@@ -20,6 +20,8 @@ const ap2 = { name: "1. Obergeschoss", x: width * 0.35 - apSize / 2 - leftShift,
 // Client Position (initially near AP1)
 let client = { x: ap1.x + apSize + 20, y: ap1.y };
 
+let debounceTimeout = null;
+
 // Resize SVG dynamically
 svg.attr("width", width).attr("height", height);
 
@@ -58,6 +60,17 @@ function getClientCenter() {
 
 // Global variable to track the current AP display name (to avoid reanimation if unchanged)
 let currentAPDisplay = "3. Obergeschoss";
+
+function moveClientWithDebounce(targetAP) {
+  if (!debounceTimeout) {
+    moveClientToAP(targetAP);
+    debounceTimeout = setTimeout(() => {
+      debounceTimeout = null;
+    }, 2000); // 2 seconds debounce time
+  } else {
+    console.log("Debounced: Movement suppressed to prevent excessive calls.");
+  }
+}
 
 // Function to move the client to a new AP using the target AP object
 function moveClientToAP(targetAP) {
@@ -104,7 +117,7 @@ socket.addEventListener("message", (event) => {
       // Trigger movement only if the display name has changed.
       if (data.servedBy !== currentAPDisplay) {
         currentAPDisplay = data.servedBy;
-        moveClientToAP(targetAP);
+        moveClientWithDebounce(targetAP);
       } else {
         console.log("ServedBy value unchanged. No movement triggered.");
       }
