@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background: linear-gradient(135deg, #1c1c1c, #2e2e2e);
+    color: #f0f0f0;
+}
+
+/* Left side: Full-width animation panel */
+.left {
+    width: 53%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f2f2f2;
+    position: relative;
+    border-right: 2px solid rgba(255,255,255,0.1);
+}
+
+/* Make SVG fill the left panel */
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Right side: Information panel */
+.right {
+    width: 47%;
+    padding: 40px 60px; /* 40px top/bottom, 60px left/right */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #222;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    font-variant: small-caps;
+}
+
+.metrics {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #f9c74f;
+}
+
+.metrics p {
+    margin-bottom: 10px; /* Increase vertical spacing between metrics */
+}
+
+.metrics span {
+    font-weight: normal; /* Make the values non-bold */
+    margin-left: 5px;    /* Optional: add a little spacing after the label */
+}
+
+.description {
+    margin-top: 20px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ccc;
+    text-align: justify;
+}
+
+/* Reset button styling */
+.reset-button {
+    align-self: flex-start;  /* Prevents full-width stretching */
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: #f9c74f;
+    color: #222;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}

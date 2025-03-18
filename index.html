@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.js Wireless Roaming Visualization</title>
+  <!-- Import Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Left: Full-width Animation -->
+  <div class="left">
+    <svg id="animation"></svg>
+  </div>
+
+  <!-- Right: Info Section -->
+  <div class="right">
+    <h1>
+        Roaming-Dauertest<br>
+        <span style="font-size: 0.7em; font-weight: normal;">XELITY WAVE PRO</span>
+    </h1>
+    <div class="metrics">
+      <p>Uptime: <span id="uptime">0 d 0 h 0 min</span></p>
+      <p>Verbunden mit: <span id="connectedAP">AP1</span></p>
+      <p>Roaming Events: <span id="roamingCount">0</span></p>
+      <p>Rx/Tx Paketverluste: <span id="packetLosses">0</span></p>
+    </div>
+    <!-- Reset button added here -->
+    <button id="reset-button" class="reset-button">Reset</button>
+    <p class="description">
+      Erleben Sie die Zukunft der drahtlosen Kommunikation. In dem hier gezeigten Testaufbau wird eine PROFINET-Übertragung zur Fahrstuhlkabine im Dauertest demonstriert. 
+      <br><br>
+      Der Testaufbau besteht aus zwei Access Points, die sich auf unterschiedlichen Etagen befinden und direkt mit einer speicherprogrammierbaren Steuerung (SPS) verbunden sind. Auf dem Fahrstuhl ist ein Client-Gerät montiert, über das PROFINET-Endgeräte angebunden werden. Solange die Signalleuchte am Fahrstuhl grün leuchtet, ist die PROFINET-Übertragung aktiv und gewährleistet eine kontinuierliche, stabile Verbindung.
+      <br><br>
+      Ermöglicht wird dies durch die einzigartige Roaming-Funktionalität des Systems. Dank <i>Zero-Latency-Roaming</i> können Clients zwischen verschiedenen Access Points wechseln, ohne dass es zu Verbindungsabbrüchen, zusätzlichen Latenzen oder Paketfehlern kommt.
+    </p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
