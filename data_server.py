@@ -86,9 +86,9 @@ async def poll_api_devices():
                         uptime_str = format_uptime(uptime_seconds)
                         
                         # Map raw AP IDs to display names
-                        if served_by == "A2A167397":
-                            display_name = "Erdgeschoss"
-                        elif served_by == "A2A167394":
+                        if served_by == "AXX000004":
+                            display_name = "1. Obergeschoss"
+                        elif served_by == "AXX000003":
                             display_name = "3. Obergeschoss"
                         else:
                             display_name = served_by

@@ -15,7 +15,7 @@ const leftShift = width * 0.05;
 // Note: For the demo, we assume:
 // "3. Obergeschoss" corresponds to AP1 and "Erdgeschoss" corresponds to AP2.
 const ap1 = { name: "3. Obergeschoss", x: width * 0.35 - apSize / 2 - leftShift, y: 0 };
-const ap2 = { name: "Erdgeschoss", x: width * 0.35 - apSize / 2 - leftShift, y: height - apSize };
+const ap2 = { name: "1. Obergeschoss", x: width * 0.35 - apSize / 2 - leftShift, y: height - apSize };
 
 // Client Position (initially near AP1)
 let client = { x: ap1.x + apSize + 20, y: ap1.y };
@@ -94,7 +94,7 @@ socket.addEventListener("message", (event) => {
       let targetAP;
       if (data.servedBy === "3. Obergeschoss") {
           targetAP = ap1;
-      } else if (data.servedBy === "Erdgeschoss") {
+      } else if (data.servedBy === "1. Obergeschoss") {
           targetAP = ap2;
       } else {
           console.warn("Unknown AP display name received:", data.servedBy);
