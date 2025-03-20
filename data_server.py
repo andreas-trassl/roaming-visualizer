@@ -107,7 +107,7 @@ async def poll_api_devices():
                         print("Client device not found or missing connectionStatus.")
             except Exception as e:
                 print("Error polling API devices:", e)
-            await asyncio.sleep(1)
+            await asyncio.sleep(4)
 
 async def ws_handler(websocket, path=None):
     connected_clients.add(websocket)
