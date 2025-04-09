@@ -20,10 +20,18 @@ last_aggregated_served_by = None
 packet_losses_dl = 0
 packet_losses_ul = 0
 
+packet_count_dl = 0
+packet_count_ul = 0
+
 packet_losses_dl_last_poll = 0
 packet_losses_dl_current_poll = 0
 packet_losses_ul_last_poll = 0
 packet_losses_ul_current_poll = 0
+
+downlink_payload_current_poll = 0
+downlink_payload_last_poll = 0
+uplink_payload_current_poll = 0
+uplink_payload_last_poll = 0
 
 # List to collect served_by values over each aggregation period
 served_by_samples = []
