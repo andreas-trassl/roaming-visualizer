@@ -87,7 +87,10 @@ socket.addEventListener("message", (event) => {
       document.getElementById("connectedAP").textContent = `${data.servedBy}`;
       document.getElementById("roamingCount").textContent = data.roamingCount;
       document.getElementById("uptime").textContent = data.uptime;
-      document.getElementById("packetLosses").textContent = data.packet_losses_dl + data.packet_losses_ul;
+      document.getElementById("packetLossRateDL").textContent = 
+        ((data.packet_losses_dl / data.downlink_payloads) * 100).toFixed(4) + "%";
+      document.getElementById("packetLossRateUL").textContent = 
+        ((data.packet_losses_ul / data.uplink_payloads) * 100).toFixed(4) + "%";
       console.log("Received metrics from WebSocket:", data);
       
       // Map display names to target AP objects.

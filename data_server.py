@@ -54,6 +54,9 @@ def map_display_name(served_by):
 
 async def poll_api_devices():
     global packet_losses_dl, packet_losses_ul
+    global packet_count_dl, packet_count_ul
+    global downlink_payload_last_poll, downlink_payload_current_poll
+    global uplink_payload_last_poll, uplink_payload_current_poll
     global packet_losses_dl_last_poll, packet_losses_dl_current_poll
     global packet_losses_ul_last_poll, packet_losses_ul_current_poll
     global served_by_samples
@@ -87,6 +90,19 @@ async def poll_api_devices():
                         if served_by is not None:
                             served_by_samples.append(served_by)
 
+                        # Update packet counters
+                        downlink_payload_last_poll = downlink_payload_current_poll
+                        uplink_payload_last_poll = uplink_payload_current_poll
+
+                        downlink_payload_current_poll = client_device["connectionStatus"].get("downlinkPayloadCount")
+                        uplink_payload_current_poll = client_device["connectionStatus"].get("uplinkPayloadCount")
+
+                        packet_count_diff_dl = downlink_payload_current_poll - downlink_payload_last_poll
+                        packet_count_diff_ul = uplink_payload_current_poll - uplink_payload_last_poll
+
+                        packet_count_dl += packet_count_diff_dl
+                        packet_count_ul += packet_count_diff_ul
+
                         # Update packet loss counters
                         packet_losses_dl_last_poll = packet_losses_dl_current_poll
                         packet_losses_ul_last_poll = packet_losses_ul_current_poll
@@ -114,7 +130,7 @@ async def poll_api_devices():
 
 
 async def aggregate_and_broadcast():
-    global roaming_events, last_aggregated_served_by, served_by_samples
+    global roaming_events, last_aggregated_served_by, served_by_samples, start_time, packet_losses_dl, packet_losses_ul, packet_count_dl, packet_count_ul
 
     while True:
         # Wait for 2 seconds between broadcasts
@@ -141,7 +157,9 @@ async def aggregate_and_broadcast():
             "roamingCount": roaming_events,
             "uptime": uptime_str,
             "packet_losses_dl": packet_losses_dl,
-            "packet_losses_ul": packet_losses_ul
+            "packet_losses_ul": packet_losses_ul,
+            "downlink_payloads": packet_count_dl,
+            "uplink_payloads": packet_count_ul
         })
 
         print("Broadcasting aggregated message:", message)
@@ -159,11 +177,13 @@ async def ws_handler(websocket, path=None):
             try:
                 data = json.loads(message)
                 if data.get("command") == "reset":
-                    global start_time, roaming_events, packet_losses_dl, packet_losses_ul
+                    global start_time, roaming_events, packet_losses_dl, packet_losses_ul, packet_count_dl, packet_count_ul
                     start_time = time.time()      # Reset uptime
                     roaming_events = 0            # Reset roaming events
                     packet_losses_dl = 0
                     packet_losses_ul = 0
+                    packet_count_dl = 0
+                    packet_count_ul = 0
                     print("Reset command received. Metrics have been reset.")
                     continue
             except Exception as e:
