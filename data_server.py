@@ -93,7 +93,7 @@ async def poll_api_devices():
                         continue
 
                     if client_device and "connectionStatus" in client_device:
-                        served_by = client_device["connectionStatus"].get("servedBy")
+                        served_by = client_device["connectionStatus"]["servedBy"].get("id")
                         # Append the served_by value for aggregation
                         if served_by is not None:
                             served_by_samples.append(served_by)
