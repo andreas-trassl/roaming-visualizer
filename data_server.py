@@ -61,6 +61,7 @@ def map_display_name(served_by):
 
 
 async def poll_api_devices():
+    global start_time, roaming_events
     global packet_losses_dl, packet_losses_ul
     global packet_count_dl, packet_count_ul
     global downlink_payload_last_poll, downlink_payload_current_poll
@@ -107,6 +108,14 @@ async def poll_api_devices():
 
                         packet_count_diff_dl = downlink_payload_current_poll - downlink_payload_last_poll
                         packet_count_diff_ul = uplink_payload_current_poll - uplink_payload_last_poll
+
+                        if (packet_count_diff_dl < 0) or (packet_count_diff_ul < 0): #logic to handle if device counters have been reset for some reason
+                            start_time = time.time()      # Reset uptime
+                            roaming_events = 0            # Reset roaming events
+                            packet_losses_dl = 0
+                            packet_losses_ul = 0
+                            packet_count_dl = 0
+                            packet_count_ul = 0
 
                         packet_count_dl += packet_count_diff_dl
                         packet_count_ul += packet_count_diff_ul
